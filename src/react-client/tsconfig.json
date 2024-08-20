@@ -1,0 +1,16 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "../../dist",
+		"lib": [
+			"ES2023",
+			"DOM"
+		],
+		"target": "es6",
+		"module": "ESNext",
+		"moduleResolution": "Bundler"
+	},
+	"include": [
+		"./*"
+	]
+}

@@ -1,0 +1,17 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./dist",
+		"lib": [
+			"ES2023"
+		],
+		"target": "ESNext",
+		"module": "NodeNext"
+	},
+	"include": [
+		"./**/*"
+	],
+	"exclude": [
+		"main.js"
+	]
+}

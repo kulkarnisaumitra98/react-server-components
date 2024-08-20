@@ -1,0 +1,41 @@
+{
+  "name": "react-server-components",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start_rsc": "node --conditions react-server server_dist/main.js",
+    "start_ssr": "node server_dist/ssr_server.js",
+    "build:server": "./scripts/server_build.sh",
+    "build:client": "rm -rf dist/; tsc -p ./src/react-client/tsconfig.json; webpack",
+    "start": "npm run build:server; npm run build:client; npm run start_rsc & npm run start_ssr"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "react": "19.0.0-rc-c3cdbec0a7-20240708",
+    "react-dom": "19.0.0-rc-c3cdbec0a7-20240708",
+    "react-server-dom-webpack": "19.0.0-rc-c3cdbec0a7-20240708"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.8",
+    "@babel/core": "^7.23.2",
+    "@babel/plugin-transform-modules-commonjs": "^7.23.0",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.3.0",
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc",
+    "typescript": "^5.5.3",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
