@@ -7,7 +7,7 @@
     "start_ssr": "node server_dist/ssr_server.js",
     "build:server": "./scripts/server_build.sh",
     "build:client": "rm -rf dist/; tsc -p ./src/react-client/tsconfig.json; webpack",
-    "start": "npm run build:server; npm run build:client; npm run start_rsc & npm run start_ssr"
+    "build": "npm run build:server; npm run build:client;"
   },
   "type": "module",
   "keywords": [],
@@ -15,9 +15,9 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2",
-    "react": "19.0.0-rc-c3cdbec0a7-20240708",
-    "react-dom": "19.0.0-rc-c3cdbec0a7-20240708",
-    "react-server-dom-webpack": "19.0.0-rc-c3cdbec0a7-20240708"
+    "react": "19.0.0-rc-a03254bc-20240905",
+    "react-dom": "19.0.0-rc-a03254bc-20240905",
+    "react-server-dom-webpack": "19.0.0-rc-a03254bc-20240905"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.8",

@@ -3,7 +3,7 @@ import AutoCounter from "./AutoCounter.js";
 import Counter from "./Counter.js";
 import DelayedHello from "./DelayedHello.js";
 
-const App = () => {
+export const App = () => {
   return (
     <div>
       <p>I am App</p>
@@ -16,5 +16,3 @@ const App = () => {
     </div>
   );
 };
-
-export default App;

@@ -1,6 +1,10 @@
-import App from "./lib/App.js";
+import type { ReactNode } from "react";
 
-const ServerRoot = () => {
+interface Props {
+  children: ReactNode;
+}
+
+export const ServerRoot = ({ children }: Props) => {
   return (
     <html>
       <head>
@@ -10,10 +14,9 @@ const ServerRoot = () => {
       </head>
       <body>
         <h1>Hello</h1>
-        <App />
+        {children}
         <script async type="module" src="/client.js"></script>
       </body>
     </html>
   );
 };
-export default ServerRoot;
