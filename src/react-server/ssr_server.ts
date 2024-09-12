@@ -2,7 +2,8 @@ import express from "express";
 import path from "path";
 import { Readable } from "stream";
 import webStream from "node:stream/web";
-import { createFromNodeStream } from "./patchedPackage/rsdw-node-unbundled.js";
+// @ts-ignore
+import { createFromNodeStream } from "react-server-dom-webpack/client.node.unbundled";
 // @ts-ignore
 import { renderToReadableStream } from "react-dom/server.edge";
 import { decodeText, encodeText, getSSRManifest } from "./utils.js";
@@ -10,12 +11,13 @@ import { decodeText, encodeText, getSSRManifest } from "./utils.js";
 const app = express();
 
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "dist")));
+
+app.use(express.static(path.join(__dirname, "dist", "client.js")));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("*", async (req, res) => {
   try {
     const pagePath = req.path;
-    console.log(pagePath, "pagePath");
     // Fetch rsc payload from rsc server
     const rscPayload = await fetch(
       `http://localhost:3001/rsc?pagePath=${pagePath}`,
@@ -47,6 +49,7 @@ app.get("*", async (req, res) => {
             controller.enqueue(chunkValue);
             controller.terminate();
           }
+
           chunkValue += `<script>(self.__RSC_PAYLOAD__ ||=[]).push(\`${serializablePayload}\`)</script>`;
           controller.enqueue(encodeText(chunkValue));
         },

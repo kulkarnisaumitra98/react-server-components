@@ -22,9 +22,7 @@ app.use(express.static(path.join(__dirname, "dist")));
 app.get("/rsc", async (req, res) => {
   const pathPath = req.query.pagePath as Paths;
   const Component = await getRoute(pathPath);
-  const PageToRender = createElement(Component.App);
-  console.log(PageToRender, "page");
-  //@ts-ignore
+  const PageToRender = createElement(Component);
   const clientManifest = getClientManifest();
   const stream = await ReactServerDOM.renderToReadableStream(
     <ServerRoot>{PageToRender}</ServerRoot>,
@@ -32,15 +30,17 @@ app.get("/rsc", async (req, res) => {
   );
   const [renderStream, copyStream] = stream.tee();
 
-  const reader = copyStream.getReader();
-  //@ts-ignore
-  reader.read().then(function pump({ value, done }) {
-    console.log(decodeText(value));
-    if (done) {
-      return;
-    }
-    return reader.read().then(pump);
-  });
+  // NOTE: copy stream for debugging purpose
+
+  // const reader = copyStream.getReader();
+  // //@ts-ignore
+  // reader.read().then(function pump({ value, done }) {
+  //   console.log(decodeText(value));
+  //   if (done) {
+  //     return;
+  //   }
+  //   return reader.read().then(pump);
+  // });
 
   Readable.fromWeb(renderStream).pipe(res);
 });
