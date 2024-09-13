@@ -25,6 +25,12 @@ body {
 
 .header__title {
 	margin: 8px 16px;
+	text-decoration: none;
+	color: #111
+}
+
+.header__title h3 {
+	margin: 0
 }
 
 .header__nav_item {
@@ -35,11 +41,14 @@ body {
 	display: flex;
 }
 
-.homepage {
+.page_layout {
 	width: 100vw;
 	display: flex;
 	flex: 1;
 	flex-direction: column;
+}
+
+.homepage {
 	align-items: center;
 	justify-content: center;
 }
@@ -47,3 +56,5 @@ body {
 .homepage__message {
 	text-align: center;
 }
+
+.add-edit-note {}

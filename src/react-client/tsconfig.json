@@ -8,7 +8,8 @@
 		],
 		"target": "es6",
 		"module": "ESNext",
-		"moduleResolution": "Bundler"
+		"moduleResolution": "Bundler",
+		"allowImportingTsExtensions": true
 	},
 	"include": [
 		"./*"

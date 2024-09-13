@@ -20,29 +20,35 @@ app.use(cors);
 app.use(express.static(path.join(__dirname, "dist")));
 
 app.get("/rsc", async (req, res) => {
-  const pathPath = req.query.pagePath as Paths;
-  const Component = await getRoute(pathPath);
-  const PageToRender = createElement(Component);
-  const clientManifest = getClientManifest();
-  const stream = await ReactServerDOM.renderToReadableStream(
-    <ServerRoot>{PageToRender}</ServerRoot>,
-    clientManifest,
-  );
-  const [renderStream, copyStream] = stream.tee();
+  const pathPath = req.query.pagePath as `/${Paths}`;
+  const pathKey = pathPath.slice(1).trim() || "/";
+  const Component = await getRoute(pathKey as Paths);
+  if (Component) {
+    const PageToRender = createElement(Component);
+    const clientManifest = getClientManifest();
+    const stream = await ReactServerDOM.renderToReadableStream(
+      <ServerRoot>{PageToRender}</ServerRoot>,
+      clientManifest,
+    );
+    const [renderStream, copyStream] = stream.tee();
 
-  // NOTE: copy stream for debugging purpose
+    // NOTE: copy stream for debugging purpose
 
-  // const reader = copyStream.getReader();
-  // //@ts-ignore
-  // reader.read().then(function pump({ value, done }) {
-  //   console.log(decodeText(value));
-  //   if (done) {
-  //     return;
-  //   }
-  //   return reader.read().then(pump);
-  // });
+    // const reader = copyStream.getReader();
+    // //@ts-ignore
+    // reader.read().then(function pump({ value, done }) {
+    //   console.log(decodeText(value));
+    //   if (done) {
+    //     return;
+    //   }
+    //   return reader.read().then(pump);
+    // });
 
-  Readable.fromWeb(renderStream).pipe(res);
+    Readable.fromWeb(renderStream).pipe(res);
+  } else {
+    res.status(404);
+    res.send("Not Found");
+  }
 });
 
 const PORT = process.env.PORT || 3001;

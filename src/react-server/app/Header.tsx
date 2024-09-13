@@ -1,10 +1,16 @@
 export const Header = () => {
   return (
     <div className="header">
-      <h3 className="header__title">NoteIt</h3>
+      <a className="header__title" href="/">
+        NoteIt
+      </a>
       <div className="header__nav_cont">
-        <h4 className="header__nav_item">Add Note</h4>
-        <h4 className="header__nav_item">My Notes</h4>
+        <a className="header__nav_item" href="/add-note">
+          Add Note
+        </a>
+        <a className="header__nav_item" href="/my-notes">
+          My Notes
+        </a>
       </div>
     </div>
   );

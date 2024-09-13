@@ -1,9 +1,12 @@
 import { use } from "react";
 import type { ReactNode } from "react";
 import { hydrateRoot } from "react-dom/client";
-// @ts-ignore
-import { createFromReadableStream } from "react-server-dom-webpack/client.browser";
-import rscStream from "./intialRscStream.js";
+import {
+  createFromReadableStream,
+  createFromFetch,
+  // @ts-ignore
+} from "react-server-dom-webpack/client.browser";
+import rscStream from "./intialRscStream.ts";
 
 let data;
 const ClientRoot = () => {
@@ -11,4 +14,44 @@ const ClientRoot = () => {
   return use<ReactNode>(data);
 };
 
-hydrateRoot(document, <ClientRoot />);
+const root = hydrateRoot(document, <ClientRoot />);
+
+let currentPathname = window.location.pathname;
+
+async function navigate(pathname: string) {
+  currentPathname = pathname;
+  const clientJSX = createFromFetch(
+    fetch(`http://localhost:3001/rsc?pagePath=${pathname}`),
+  );
+  data = clientJSX;
+  if (pathname === currentPathname) {
+    root.render(<ClientRoot />);
+  }
+}
+
+window.addEventListener(
+  "click",
+  (e) => {
+    const el = e.target as HTMLElement;
+    if (el) {
+      if (el.tagName !== "A") {
+        return;
+      }
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+        return;
+      }
+      const href = el.getAttribute("href");
+      if (!href?.startsWith("/")) {
+        return;
+      }
+      e.preventDefault();
+      window.history.pushState(null, "", href);
+      navigate(href);
+    }
+  },
+  true,
+);
+
+window.addEventListener("popstate", () => {
+  navigate(window.location.pathname);
+});

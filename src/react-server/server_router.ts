@@ -3,10 +3,15 @@ const importHelper = (path: string, Component: string) => {
 };
 
 export const router = {
+  ["/"]: importHelper("./app/Homepage.js", "Homepage"),
   homepage: importHelper("./app/Homepage.js", "Homepage"),
+  ["add-note"]: importHelper("./app/AddEditNote.js", "AddEditNote"),
+  ["edit-note"]: importHelper("./app/AddEditNote.js", "AddEditNote"),
+  ["my-notes"]: importHelper("./app/MyNotes.js", "MyNotes"),
 };
 
 export type Paths = keyof typeof router;
 
-export const getRoute = (path: Paths) =>
-  router[path] || importHelper("./app/Homepage.js", "Homepage");
+export const getRoute = (path: Paths) => {
+  return router[path];
+};

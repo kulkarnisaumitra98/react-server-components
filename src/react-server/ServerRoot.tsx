@@ -4,7 +4,6 @@ import { Layout } from "./app/Layout.js";
 interface Props {
   children: ReactNode;
 }
-
 export const ServerRoot = ({ children }: Props) => {
   return (
     <html>

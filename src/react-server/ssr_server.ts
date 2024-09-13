@@ -12,18 +12,20 @@ const app = express();
 
 const __dirname = path.resolve();
 
-app.use(express.static(path.join(__dirname, "dist", "client.js")));
+app.use(express.static(path.join(__dirname, "dist")));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("*", async (req, res) => {
   try {
     const pagePath = req.path;
     // Fetch rsc payload from rsc server
-    const rscPayload = await fetch(
+    const rscResponse = await fetch(
       `http://localhost:3001/rsc?pagePath=${pagePath}`,
     );
-    if (rscPayload && rscPayload.body) {
-      const [injectionStream, renderStream] = rscPayload.body.tee();
+    if (rscResponse.status === 404) {
+      res.send("Not found");
+    } else if (rscResponse && rscResponse.body) {
+      const [injectionStream, renderStream] = rscResponse.body.tee();
       const reader = injectionStream.getReader();
       let serializablePayload: string | undefined;
       reader.read().then(function pump({
