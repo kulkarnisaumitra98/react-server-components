@@ -1,4 +1,4 @@
-const ws = new WebSocket("ws://localhost:8080");
+const ws = new WebSocket(window.env.WS_URL);
 
 ws.addEventListener("message", (msg) => {
   if (msg.data === "reload") {

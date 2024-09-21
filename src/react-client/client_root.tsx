@@ -21,7 +21,7 @@ let currentPathname = window.location.pathname;
 async function navigate(pathname: string) {
   currentPathname = pathname;
   const clientJSX = createFromFetch(
-    fetch(`http://localhost:3001/rsc?pagePath=${pathname}`),
+    fetch(`${window.env.RSC_URL}/rsc${pathname}`),
   );
   data = clientJSX;
   if (pathname === currentPathname) {

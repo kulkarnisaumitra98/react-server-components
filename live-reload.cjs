@@ -1,7 +1,8 @@
 const chokidar = require("chokidar");
 const ws = require("ws");
+require("dotenv").config();
 
-const wss = new ws.WebSocketServer({ port: 8080 });
+const wss = new ws.WebSocketServer({ host: process.env.WS_HOST, port: 8080 });
 
 let sendMessage = null;
 

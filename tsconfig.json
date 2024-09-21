@@ -4,6 +4,7 @@
     "strict": true,
     "skipLibCheck": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "verbatimModuleSyntax": true
   }
 }

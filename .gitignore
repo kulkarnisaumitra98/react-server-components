@@ -1,4 +1,6 @@
 dist/
 node_modules/
 server_dist/
+.env
+notes.db
 *.md

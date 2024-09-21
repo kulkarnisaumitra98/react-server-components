@@ -1,6 +1,9 @@
 declare global {
   interface Window {
     __RSC_PAYLOAD__: any;
+    env: {
+      RSC_URL: string;
+    };
   }
 }
 

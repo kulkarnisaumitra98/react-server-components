@@ -5,9 +5,15 @@ const importHelper = (path: string, Component: string) => {
 export const router = {
   ["/"]: importHelper("./app/Homepage.js", "Homepage"),
   homepage: importHelper("./app/Homepage.js", "Homepage"),
-  ["add-note"]: importHelper("./app/AddEditNote.js", "AddEditNote"),
-  ["edit-note"]: importHelper("./app/AddEditNote.js", "AddEditNote"),
-  ["my-notes"]: importHelper("./app/MyNotes.js", "MyNotes"),
+  ["add-note"]: importHelper("./app/AddEditNote/AddEditNote.js", "AddEditNote"),
+  ["edit-note"]: importHelper(
+    "./app/AddEditNote/AddEditNote.js",
+    "AddEditNote",
+  ),
+  ["my-notes"]: importHelper(
+    "./app/NotesListing/NotesListing.js",
+    "NotesListing",
+  ),
 };
 
 export type Paths = keyof typeof router;

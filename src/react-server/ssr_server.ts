@@ -2,12 +2,19 @@ import express from "express";
 import path from "path";
 import { Readable } from "stream";
 import webStream from "node:stream/web";
+import type { ReadableStream } from "node:stream/web";
 // @ts-ignore
 import { createFromNodeStream } from "react-server-dom-webpack/client.node.unbundled";
 // @ts-ignore
 import { renderToReadableStream } from "react-dom/server.edge";
 import { decodeText, encodeText, getSSRManifest } from "./utils.js";
 
+import { RSC_URL, WS_URL } from "./constants.js";
+
+const client_env = {
+  RSC_URL,
+  WS_URL,
+};
 const app = express();
 
 const __dirname = path.resolve();
@@ -18,10 +25,20 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("*", async (req, res) => {
   try {
     const pagePath = req.path;
+    const params = req.query;
+
+    const url = new URL(`${RSC_URL}/rsc${pagePath}`);
+
+    const paramValues = Object.entries(params);
+
+    if (paramValues.length) {
+      Object.entries(params).forEach(([key, value]) => {
+        url.searchParams.append(key, (value || "").toString());
+      });
+    }
+
     // Fetch rsc payload from rsc server
-    const rscResponse = await fetch(
-      `http://localhost:3001/rsc?pagePath=${pagePath}`,
-    );
+    const rscResponse = await fetch(url);
     if (rscResponse.status === 404) {
       res.send("Not found");
     } else if (rscResponse && rscResponse.body) {
@@ -40,7 +57,8 @@ app.get("*", async (req, res) => {
         return reader.read().then(pump);
       });
       const serverRoot = await createFromNodeStream(
-        Readable.fromWeb(renderStream),
+        // Need to cast from UInt8Array to any for some reason
+        Readable.fromWeb(renderStream as ReadableStream<any>),
         getSSRManifest(),
       );
       const htmlStream = await renderToReadableStream(serverRoot);
@@ -48,11 +66,16 @@ app.get("*", async (req, res) => {
         transform(chunk, controller) {
           let chunkValue = decodeText(chunk);
           if (chunkValue == "</body></html>") {
-            controller.enqueue(chunkValue);
+            chunkValue =
+              `<script>self.env = ${JSON.stringify(client_env)}</script><script src="/reload.js"></script>`.concat(
+                chunkValue,
+              );
+
+            controller.enqueue(encodeText(chunkValue));
             controller.terminate();
           }
 
-          chunkValue += `<script>(self.__RSC_PAYLOAD__ ||=[]).push(\`${serializablePayload}\`)</script>`;
+          chunkValue += `<script>(self.__RSC_PAYLOAD__ ||=[]).push(${JSON.stringify(serializablePayload)})</script>`;
           controller.enqueue(encodeText(chunkValue));
         },
       });
@@ -70,5 +93,5 @@ app.get("*", async (req, res) => {
 // Starting the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running`);
 });

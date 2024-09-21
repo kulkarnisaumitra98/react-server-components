@@ -4,5 +4,6 @@
 // @ts-ignore
 const reactServerregister = require("react-server-dom-webpack/node-register");
 reactServerregister();
+
 // start the server
 require("./rsc_server");

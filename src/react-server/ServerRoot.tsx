@@ -4,6 +4,7 @@ import { Layout } from "./app/Layout.js";
 interface Props {
   children: ReactNode;
 }
+
 export const ServerRoot = ({ children }: Props) => {
   return (
     <html>
@@ -16,7 +17,6 @@ export const ServerRoot = ({ children }: Props) => {
       <body>
         <Layout pageToRender={children} />
         <script async type="module" src="/client.js"></script>
-        <script src="/reload.js"></script>
       </body>
     </html>
   );
