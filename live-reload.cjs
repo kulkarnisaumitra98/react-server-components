@@ -12,7 +12,7 @@ wss.on("connection", function connection(ws) {
   };
 });
 
-const watcher = chokidar.watch(["./server_dist/", "public", "dist"], {
+const watcher = chokidar.watch(["public", "dist"], {
   ignored: [
     "**/node_modules/**",
     /(^|[/\\])\../, // ignore dotfiles

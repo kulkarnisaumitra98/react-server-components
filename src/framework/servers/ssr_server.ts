@@ -8,8 +8,7 @@ import { createFromNodeStream } from "react-server-dom-webpack/client.node.unbun
 // @ts-ignore
 import { renderToReadableStream } from "react-dom/server.edge";
 import { decodeText, encodeText, getSSRManifest } from "./utils.js";
-
-import { RSC_URL, WS_URL } from "./constants.js";
+import { RSC_URL, WS_URL } from "../../shared/constants.js";
 
 const client_env = {
   RSC_URL,
@@ -19,8 +18,8 @@ const app = express();
 
 const __dirname = path.resolve();
 
-app.use(express.static(path.join(__dirname, "dist")));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "client_out")));
 
 app.get("*", async (req, res) => {
   try {

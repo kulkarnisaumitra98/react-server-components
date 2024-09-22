@@ -1,25 +1,20 @@
 import express from "express";
 import type { Request, Response } from "express";
-import path from "path";
 // @ts-ignore
 import * as ReactServerDOM from "react-server-dom-webpack/server.edge";
-import cors from "./cors.js";
 import apiRouter from "./api/apiRouter.js";
-import { getClientManifest } from "./utils.js";
-import { getRoute } from "./server_router.js";
+import { getClientManifest, cors } from "./utils.js";
+import { getRoute, type Paths } from "./router.js";
 import { Readable } from "stream";
-import { ServerRoot } from "./ServerRoot.js";
-import type { Paths } from "./server_router.js";
+import { ServerRoot } from "../../app/ServerRoot.js";
 import dotenv from "dotenv";
 dotenv.config();
 // Creating an Express application
 const app = express();
 
-const __dirname = path.resolve();
-
 app.use(cors);
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "dist")));
+
 app.use("/api", apiRouter);
 
 const getRscResponse = async (req: Request, res: Response) => {

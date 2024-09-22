@@ -1,5 +1,5 @@
 import { db } from "./db.js";
-import type { Note, NoteCallback } from "./types.js";
+import type { Note, NoteCallback } from "../../../shared/types.js";
 
 export function createOrEditNote(
   id: number | null,
@@ -19,7 +19,7 @@ export function createOrEditNote(
         db.close();
         return callback(err);
       }
-      callback(null, { id, title, content, updated: true });
+      callback(null, { id, title, content });
     });
   } else {
     // Create new note
@@ -33,7 +33,7 @@ export function createOrEditNote(
         return callback(err);
       }
       const newId = this.lastID;
-      callback(null, { id: newId, title, content, created: true });
+      callback(null, { id: newId, title, content });
     });
   }
 }

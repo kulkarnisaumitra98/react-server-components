@@ -1,5 +1,5 @@
-import type { Note } from "../../api/types.js";
-import { RSC_URL } from "../../constants.js";
+import type { Note } from "../../shared/types.js";
+import { RSC_URL } from "../../shared/constants.js";
 
 interface Props {
   activeNoteId?: string;
@@ -19,7 +19,7 @@ export const MyNotes = async ({ activeNoteId }: Props) => {
         >
           <p className="my_notes__note_title">{title}</p>
           <p className="my_notes__note_content">
-            {new Date(created_at).toLocaleString()}
+            {new Date(created_at || "").toLocaleString()}
           </p>
         </div>
       );

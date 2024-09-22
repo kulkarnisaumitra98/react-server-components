@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Layout } from "./app/Layout.js";
+import { Layout } from "./Layout.js";
 
 interface Props {
   children: ReactNode;
@@ -16,7 +16,7 @@ export const ServerRoot = ({ children }: Props) => {
       </head>
       <body>
         <Layout pageToRender={children} />
-        <script async type="module" src="/client.js"></script>
+        <script async type="module" src="/client_root.js"></script>
       </body>
     </html>
   );

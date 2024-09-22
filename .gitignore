@@ -1,6 +1,6 @@
 dist/
 node_modules/
-server_dist/
+client_out/
 .env
 notes.db
 *.md

@@ -3,7 +3,7 @@ export interface Note {
   id: number;
   title: string;
   content: string;
-  created_at: string;
+  created_at?: string;
 }
 
 // Define the type for the callback function

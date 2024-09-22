@@ -2,7 +2,7 @@ const path = require("path");
 const ReactServerWebpackPlugin = require("react-server-dom-webpack/plugin");
 
 module.exports = {
-  entry: "./src/react-client/client_root.tsx",
+  entry: "./dist/framework/client/client_root.tsx",
   mode: "development",
   module: {
     rules: [
@@ -23,7 +23,7 @@ module.exports = {
       isServer: false,
       clientReferences: [
         {
-          directory: "./server_dist/",
+          directory: "./dist",
           recursive: true,
           include: /\.(js|ts|jsx|tsx)$/,
         },
@@ -31,7 +31,7 @@ module.exports = {
     }),
   ],
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "client.js",
+    path: path.resolve(__dirname, "client_out"),
+    filename: "client_root.js",
   },
 };
