@@ -6,12 +6,17 @@ import {
   createFromFetch,
   // @ts-ignore
 } from "react-server-dom-webpack/client.browser";
-import rscStream from "./intialRscStream.ts";
+import { rscStream } from "./intialRscStream.js";
+import { RouterContext } from "./utils.js";
 
 let data;
 const ClientRoot = () => {
   data ??= createFromReadableStream(rscStream);
-  return use<ReactNode>(data);
+  return (
+    <RouterContext.Provider value={{ navigate }}>
+      {use<ReactNode>(data)}
+    </RouterContext.Provider>
+  );
 };
 
 const root = hydrateRoot(document, <ClientRoot />);
@@ -19,6 +24,7 @@ const root = hydrateRoot(document, <ClientRoot />);
 let currentPathname = window.location.pathname;
 
 async function navigate(pathname: string) {
+  window.history.pushState(null, "", pathname);
   currentPathname = pathname;
   const clientJSX = createFromFetch(
     fetch(`${window.env.RSC_URL}/rsc${pathname}`),
@@ -45,7 +51,6 @@ window.addEventListener(
         return;
       }
       e.preventDefault();
-      window.history.pushState(null, "", href);
       navigate(href);
     }
   },

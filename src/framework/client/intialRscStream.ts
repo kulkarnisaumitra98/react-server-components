@@ -9,7 +9,7 @@ declare global {
 
 let encoder = new TextEncoder();
 let streamController: any;
-let rscStream = new ReadableStream({
+export const rscStream = new ReadableStream({
   start(controller) {
     if (typeof window === "undefined") {
       return;
@@ -33,5 +33,3 @@ if (typeof document !== "undefined" && document.readyState === "loading") {
 } else {
   streamController?.close();
 }
-
-export default rscStream;

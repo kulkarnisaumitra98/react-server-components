@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const NotesListing = ({ params }: Props) => {
-  const activeNoteId = params.id;
+  const activeNoteId = params?.id;
 
   return (
     <div className="page_layout my_notes">

@@ -5,6 +5,16 @@
     "skipLibCheck": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "verbatimModuleSyntax": true
-  }
+    "verbatimModuleSyntax": true,
+    "outDir": "./dist",
+    "lib": [
+      "ES2023",
+      "DOM"
+    ],
+    "target": "ESNext",
+    "module": "NodeNext"
+  },
+  "include": [
+    "./src"
+  ]
 }
