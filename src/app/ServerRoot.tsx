@@ -16,7 +16,6 @@ export const ServerRoot = ({ children }: Props) => {
       </head>
       <body>
         <Layout pageToRender={children} />
-        <script async type="module" src="/client_root.js"></script>
       </body>
     </html>
   );

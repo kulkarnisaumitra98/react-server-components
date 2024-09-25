@@ -1,8 +1,26 @@
 import express from "express";
 import type { Request, Response } from "express";
-import { createOrEditNote, getAllNotes } from "./utils.js";
+import { createOrEditNote, getAllNotes, getNoteById } from "./utils.js";
 
 const router = express.Router();
+
+router.get("/notes/:id", (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  getNoteById(id, (err, note) => {
+    if (err) {
+      return res
+        .status(500)
+        .json({ error: "An error occurred while fetching the note" });
+    }
+
+    if (!note) {
+      return res.status(404).json({ error: "Note not found" });
+    }
+
+    res.json(note);
+  });
+});
 
 // Route to get all notes
 router.get("/notes", (_, res: Response) => {

@@ -3,6 +3,7 @@ const ReactServerWebpackPlugin = require("react-server-dom-webpack/plugin");
 
 module.exports = {
   entry: "./dist/framework/client/root.js",
+  devtool: "source-map",
   mode: "development",
   plugins: [
     new ReactServerWebpackPlugin({

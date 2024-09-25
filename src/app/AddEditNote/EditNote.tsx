@@ -1,7 +1,8 @@
 "use client";
 
 import type { ChangeEventHandler } from "react";
-import type { CommonSectionProps } from "./types.js";
+import type { CommonSectionProps } from "../shared/types.js";
+import { useRouter } from "../../framework/client/utils.js";
 
 interface Props {
   onChangeTitle: ChangeEventHandler<HTMLInputElement>;
@@ -14,6 +15,8 @@ export const EditNote = ({
   onChangeTitle,
   onChangeBody,
 }: CommonSectionProps & Props) => {
+  const { navigate } = useRouter();
+
   const onSave = async () => {
     // @ts-ignore
     const response = await fetch(`${window.env.RSC_URL}/api/notes`, {
@@ -26,7 +29,8 @@ export const EditNote = ({
         "Content-Type": "application/json",
       },
     });
-    console.log(response);
+    const newNote = await response.json();
+    navigate?.(`/my-notes?id=${newNote.id}`);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { db } from "./db.js";
+import { db } from "./db.mjs";
 import type { Note, NoteCallback } from "../../../shared/types.js";
 
 export function createOrEditNote(
@@ -49,5 +49,18 @@ export function getAllNotes(
       return callback(err);
     }
     callback(null, rows as Note[]);
+  });
+}
+
+export function getNoteById(
+  id: number,
+  callback: (error: Error | null, note?: Note) => void,
+): void {
+  const query = "SELECT * FROM notes WHERE id = ?";
+  db.get(query, [id], (err, row) => {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, row as Note);
   });
 }

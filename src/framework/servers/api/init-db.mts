@@ -1,4 +1,4 @@
-import { db } from "./db.js";
+import { db } from "./db.mjs";
 
 // SQL to create the notes table
 const createTableSQL = `

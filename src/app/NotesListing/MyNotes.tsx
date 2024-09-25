@@ -10,12 +10,11 @@ export const MyNotes = async ({ activeNoteId }: Props) => {
   const notes: Array<Note> = await response.json();
 
   const getNotes = () => {
-    return notes.map(({ title, id, created_at }, idx) => {
-      const isActive = id === Number(activeNoteId);
+    return notes.map(({ title, created_at }, idx) => {
       const note = notes[idx];
 
       return (
-        <NoteCard isActive={isActive} note={note}>
+        <NoteCard note={note} activeNoteId={activeNoteId}>
           <p className="my_notes__note_title">{title}</p>
           <p className="my_notes__note_content">
             {new Date(created_at || "").toLocaleString()}

@@ -38,23 +38,11 @@ app.get("*", async (req, res) => {
 
     // Fetch rsc payload from rsc server
     const rscResponse = await fetch(url);
+
     if (rscResponse.status === 404) {
       res.send("Not found");
     } else if (rscResponse && rscResponse.body) {
       const [injectionStream, renderStream] = rscResponse.body.tee();
-      const reader = injectionStream.getReader();
-      let serializablePayload: string | undefined;
-      reader.read().then(function pump({
-        value,
-        done,
-      }: webStream.ReadableStreamReadResult<any>): Promise<void> | undefined {
-        if (done) {
-          return;
-        }
-
-        serializablePayload = decodeText(value);
-        return reader.read().then(pump);
-      });
       const serverRoot = await createFromNodeStream(
         // Need to cast from UInt8Array to any for some reason
         Readable.fromWeb(renderStream as ReadableStream<any>),
@@ -62,20 +50,29 @@ app.get("*", async (req, res) => {
       );
       const htmlStream = await renderToReadableStream(serverRoot);
       const transformedHtmlStream = new webStream.TransformStream({
-        transform(chunk, controller) {
+        async transform(chunk, controller) {
           let chunkValue = decodeText(chunk);
           if (chunkValue == "</body></html>") {
             chunkValue =
-              `<script>self.env = ${JSON.stringify(client_env)}</script><script src="/reload.js"></script>`.concat(
-                chunkValue,
-              );
-
+              `<script>self.env = ${JSON.stringify(client_env)}</script>\
+              <script async type="module" src="/client_root.js"></script>\
+              <script src="/reload.js"></script>`.concat(chunkValue);
             controller.enqueue(encodeText(chunkValue));
             controller.terminate();
+          } else {
+            controller.enqueue(encodeText(chunkValue));
+            try {
+              // @ts-ignore
+              for await (let chunk of injectionStream) {
+                const serializablePayload = decodeText(chunk);
+                controller.enqueue(
+                  `<script>(self.__RSC_PAYLOAD__ ||=[]).push(${JSON.stringify(serializablePayload)})</script>`,
+                );
+              }
+            } catch (err) {
+              controller.error(err);
+            }
           }
-
-          chunkValue += `<script>(self.__RSC_PAYLOAD__ ||=[]).push(${JSON.stringify(serializablePayload)})</script>`;
-          controller.enqueue(encodeText(chunkValue));
         },
       });
       const injectedeHtmlStream = htmlStream.pipeThrough(transformedHtmlStream);
@@ -88,7 +85,6 @@ app.get("*", async (req, res) => {
     res.send("Failed");
   }
 });
-
 // Starting the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { ChangeEventHandler } from "react";
 import { EditNote } from "./EditNote.js";
-import { PreviewNote } from "./PreviewNote.js";
+import { PreviewNote } from "../shared/PreviewNote.js";
 
 export const Sections = () => {
   const [title, setTitle] = useState("");

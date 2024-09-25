@@ -7,7 +7,7 @@
     "build:client": "webpack -w",
     "start_rsc": "nodemon --delay 200ms --conditions react-server ./main/main_rsc.js",
     "start_ssr": "nodemon --delay 200ms ./main/main_ssr.js",
-    "init-db": "node ./dist/framework/servers/api/init-db.js",
+    "init-db": "node ./dist/framework/servers/api/init-db.mjs",
     "watch": "node live-reload.cjs"
   },
   "keywords": [],
@@ -17,9 +17,10 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "marked": "^14.1.2",
-    "react": "19.0.0-rc-a03254bc-20240905",
-    "react-dom": "19.0.0-rc-a03254bc-20240905",
-    "react-server-dom-webpack": "19.0.0-rc-a03254bc-20240905",
+    "react": "19.0.0-rc-5d19e1c8-20240923",
+    "react-dom": "19.0.0-rc-5d19e1c8-20240923",
+    "react-error-boundary": "^4.0.13",
+    "react-server-dom-webpack": "19.0.0-rc-5d19e1c8-20240923",
     "sanitize-html": "^2.13.0",
     "sqlite3": "^5.1.7"
   },

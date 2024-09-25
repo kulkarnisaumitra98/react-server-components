@@ -8,7 +8,7 @@ declare global {
 }
 
 let encoder = new TextEncoder();
-let streamController: any;
+export let streamController: any;
 export const rscStream = new ReadableStream({
   start(controller) {
     if (typeof window === "undefined") {
