@@ -122,7 +122,7 @@ body {
 
 .my_notes__listing {
 	display: flex;
-	flex-grow: 0.3;
+	width: 30%;
 	flex-direction: column;
 	gap: 20px;
 	padding: 20px;
@@ -157,8 +157,9 @@ body {
 }
 
 .my_notes__preview {
-	flex-grow: 0.7;
+	width: 70%;
 }
+
 
 .my_notes__active_note {
 	border: 1px solid #007bff

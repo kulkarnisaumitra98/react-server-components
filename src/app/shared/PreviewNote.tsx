@@ -2,16 +2,14 @@ import { marked } from "marked";
 //@ts-ignore
 import sanitizeHtml from "sanitize-html";
 import type { CommonSectionProps } from "./types.js";
-import type { ReactNode } from "react";
 
 export const PreviewNote = ({
   title,
   content,
-  loadingPreview,
-}: CommonSectionProps & { loadingPreview?: ReactNode }) => {
+}: CommonSectionProps & { isPreviewLoading?: boolean }) => {
   return (
     <section className="add_edit_note__section add_edit_note__preview_section">
-      <h2 className="add_edit_note__item">Preview Note {loadingPreview}</h2>
+      <h2 className="add_edit_note__item">Preview Note </h2>
       <h3 className="add_edit_note__item add_edit_note__title_preview">
         {title}
       </h3>

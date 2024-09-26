@@ -1,28 +1,38 @@
 "use client";
 
-import { type ReactNode } from "react";
+import { useContext, type ReactNode } from "react";
 import { useRouter } from "../../framework/client/utils.js";
 import type { Note } from "../../shared/types.js";
+import { NotesContext } from "./NotesContext.js";
 
 interface Props {
   children: ReactNode;
   note: Note;
-  activeNoteId?: string;
 }
 
-export const NoteCard = ({ children, activeNoteId, note }: Props) => {
-  const { id: noteId } = note;
-  const { navigate, global } = useRouter(); // Get the current URL
+export const NoteCard = ({ children, note }: Props) => {
+  const { id } = note;
+  const { navigate } = useRouter(); // Get the current URL
+  const { startTransition, setSelectedNote, selectedNote } =
+    useContext(NotesContext);
 
+  const noteId = String(id);
   const onClickCard = () => {
-    navigate?.(`/my-notes?id=${noteId}`, { id: noteId });
+    startTransition?.(() => {
+      if (selectedNote !== noteId) {
+        navigate?.(`/my-notes?id=${noteId}`);
+      } else {
+        navigate?.("/my-notes");
+      }
+    });
+    setSelectedNote?.(noteId === selectedNote ? null : noteId);
   };
 
   return (
     <div
       key={noteId}
       onClick={onClickCard}
-      className={`${String(noteId) === String(global?.id || activeNoteId) ? "my_notes__active_note" : ""} my_notes__note_card`}
+      className={`${String(noteId) === String(selectedNote) ? "my_notes__active_note" : ""} my_notes__note_card`}
     >
       {children}
     </div>
