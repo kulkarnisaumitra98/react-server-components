@@ -7,10 +7,9 @@ import {
   // @ts-ignore
 } from "react-server-dom-webpack/client.browser";
 import { rscStream } from "./intialRscStream.js";
-import { RouterContext, useAnchorClick } from "./utils.js";
+import { RouterContext } from "./utils.js";
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 
-let data: any;
 const ClientRoot = () => {
   return (
     <ErrorBoundary FallbackComponent={Error}>
@@ -19,30 +18,38 @@ const ClientRoot = () => {
   );
 };
 
-const root = hydrateRoot(document, <ClientRoot />);
+let data = createFromReadableStream(rscStream);
+hydrateRoot(document, <ClientRoot />);
 
 const Router = () => {
   const [global, setGlobal] = useState<any>({});
-
-  data ??= createFromReadableStream(rscStream);
+  const { pathname, search } = window.location;
+  const [cache, setCache] = useState(
+    new Map([[pathname + search || "", data]]),
+  );
 
   function navigate(pathname: string, params?: any) {
-    startTransition(() => {
-      let currentPathname = window.location.pathname;
-      window.history.pushState(null, "", pathname);
+    let currentPathname = window.location.pathname;
+    currentPathname = pathname;
+    window.history.pushState(null, "", pathname);
+    if (params) {
       setGlobal((prev: any) => ({ ...prev, ...params }));
-      currentPathname = pathname;
-      const clientJSX = createFromFetch(
-        fetch(`${window.env.RSC_URL}/rsc${pathname}`),
-      );
-      data = clientJSX;
-      if (pathname === currentPathname) {
-        root.render(<ClientRoot />);
-      }
+    }
+
+    if (cache.has(currentPathname)) {
+      data = cache.get(currentPathname);
+    } else {
+      data = createFromFetch(fetch(`${window.env.RSC_URL}/rsc${pathname}`));
+    }
+
+    startTransition(() => {
+      setCache((prev) => {
+        const newMap = new Map(prev);
+        newMap.set(currentPathname, data);
+        return newMap;
+      });
     });
   }
-
-  useAnchorClick(navigate);
 
   return (
     <RouterContext.Provider value={{ navigate, global }}>

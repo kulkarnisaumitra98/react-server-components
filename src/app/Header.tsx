@@ -1,16 +1,18 @@
+import { Link } from "./shared/Link.js";
+
 export const Header = () => {
   return (
     <div className="header">
-      <a className="header__title" href="/">
+      <Link className="header__title" href="/">
         NoteIt
-      </a>
+      </Link>
       <div className="header__nav_cont">
-        <a className="header__nav_item" href="/add-note">
+        <Link className="header__nav_item" href="/add-note">
           Add Note
-        </a>
-        <a className="header__nav_item" href="/my-notes">
+        </Link>
+        <Link className="header__nav_item" href="/my-notes">
           My Notes
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -49,8 +49,9 @@ app.get("*", async (req, res) => {
         getSSRManifest(),
       );
       const htmlStream = await renderToReadableStream(serverRoot);
+      const reader = injectionStream.getReader();
       const transformedHtmlStream = new webStream.TransformStream({
-        async transform(chunk, controller) {
+        transform(chunk, controller) {
           let chunkValue = decodeText(chunk);
           if (chunkValue == "</body></html>") {
             chunkValue =
@@ -61,17 +62,23 @@ app.get("*", async (req, res) => {
             controller.terminate();
           } else {
             controller.enqueue(encodeText(chunkValue));
-            try {
-              // @ts-ignore
-              for await (let chunk of injectionStream) {
-                const serializablePayload = decodeText(chunk);
-                controller.enqueue(
-                  `<script>(self.__RSC_PAYLOAD__ ||=[]).push(${JSON.stringify(serializablePayload)})</script>`,
-                );
+
+            reader.read().then(function pump({
+              value,
+              done,
+            }: webStream.ReadableStreamReadResult<any>):
+              | Promise<void>
+              | undefined {
+              if (done) {
+                return;
               }
-            } catch (err) {
-              controller.error(err);
-            }
+
+              const serializablePayload = decodeText(value);
+              controller.enqueue(
+                `<script>(self.__RSC_PAYLOAD__ ||=[]).push(${JSON.stringify(serializablePayload)})</script>`,
+              );
+              return reader.read().then(pump);
+            });
           }
         },
       });
