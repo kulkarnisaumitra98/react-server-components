@@ -6,7 +6,7 @@
     "build:server": "tsc -w",
     "build:client": "webpack -w",
     "start_rsc": "nodemon --delay 200ms --conditions react-server ./main/main_rsc.js",
-    "start_ssr": "nodemon --delay 200ms ./main/main_ssr.js",
+    "start_ssr": "nodemon  --delay 200ms --import ./node-loaders/register-hooks.mjs ./dist/framework/servers/ssr_server.js",
     "init-db": "node ./dist/framework/servers/api/init-db.mjs",
     "watch": "node live-reload.cjs"
   },
@@ -46,6 +46,6 @@
     "@types/react-dom": "npm:types-react-dom@rc"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=20.17.0"
   }
 }
