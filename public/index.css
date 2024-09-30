@@ -64,12 +64,42 @@ body {
 }
 
 .homepage {
-	align-items: center;
+	display: flex;
+	flex-direction: column;
+	padding: 40px;
+	padding-bottom: 0;
+}
+
+.homage__fetch_random_note {
+	display: flex;
+	cursor: pointer;
 	justify-content: center;
+	align-items: center;
+	border-radius: 4px;
+	border: 2px solid #222;
+	padding: 4px 8px;
 }
 
 .homepage__message {
 	text-align: center;
+	border: 1px solid #aaa;
+}
+
+.homepage__demo_cont {
+	display: flex;
+	justify-content: center;
+	margin-top: 50px;
+	gap: 100px;
+	width: 100%;
+}
+
+.homagepage_demo_item {
+	display: flex;
+	flex-direction: column;
+}
+
+.homepage_demo_title {
+	margin-bottom: 16px !important;
 }
 
 .add_edit_note {

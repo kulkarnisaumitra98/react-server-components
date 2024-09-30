@@ -64,3 +64,44 @@ export function getNoteById(
     callback(null, row as Note);
   });
 }
+
+function getAllNoteIds(
+  callback: (error: Error | null, ids?: number[]) => void,
+): void {
+  const query = "SELECT id FROM notes";
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      return callback(err);
+    }
+    const ids = rows.map((row) => (row as Note).id);
+    callback(null, ids);
+  });
+}
+
+export function getRandomNote(
+  callback: (error: Error | null, note?: Note | null) => void,
+): void {
+  // First, get all note IDs
+  getAllNoteIds((error, ids) => {
+    if (error) {
+      return callback(error);
+    }
+
+    if (!ids || ids.length === 0) {
+      return callback(null, null);
+    }
+
+    // Select a random ID from the list
+    const randomIndex = Math.floor(Math.random() * ids.length);
+
+    const randomId = ids[randomIndex];
+    // Use the existing getNoteById function to fetch the random note
+
+    getNoteById(randomId, (error, note) => {
+      if (error) {
+        return callback(error);
+      }
+      callback(null, note);
+    });
+  });
+}

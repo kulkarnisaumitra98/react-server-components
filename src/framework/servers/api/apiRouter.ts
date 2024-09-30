@@ -1,6 +1,11 @@
 import express from "express";
 import type { Request, Response } from "express";
-import { createOrEditNote, getAllNotes, getNoteById } from "./utils.js";
+import {
+  createOrEditNote,
+  getAllNotes,
+  getNoteById,
+  getRandomNote,
+} from "./utils.js";
 
 const router = express.Router();
 
@@ -19,6 +24,15 @@ router.get("/notes/:id", (req, res) => {
     }
 
     res.json(note);
+  });
+});
+
+router.get("/random-note", (_, res: Response) => {
+  getRandomNote((err, note) => {
+    if (err) {
+      return res.status(500).json({ error: "Error fetching random note" });
+    }
+    res.json(note || {});
   });
 });
 

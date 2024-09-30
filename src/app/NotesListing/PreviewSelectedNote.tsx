@@ -9,7 +9,7 @@ interface Props {
 
 export const PreviewSelectedNote = async ({ id }: Props) => {
   if (id) {
-    await wait(3000);
+    await wait(1000);
     const response = await fetch(`${RSC_URL}/api/notes/${id}`);
     const note: Note = await response.json();
     const { title, content } = note;

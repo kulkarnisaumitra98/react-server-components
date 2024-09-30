@@ -3,8 +3,8 @@ const importHelper = (path: string, Component: string) => {
 };
 
 export const router = {
-  ["/"]: importHelper("../../app/Homepage.js", "Homepage"),
-  homepage: importHelper("../../app/Homepage.js", "Homepage"),
+  ["/"]: importHelper("../../app/Homepage/Homepage.js", "Homepage"),
+  homepage: importHelper("../../app/Homepage/Homepage.js", "Homepage"),
   ["add-note"]: importHelper(
     "../../app/AddEditNote/AddEditNote.js",
     "AddEditNote",

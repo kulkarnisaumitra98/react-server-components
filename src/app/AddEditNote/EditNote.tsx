@@ -18,24 +18,29 @@ export const EditNote = ({
   const { navigate } = useRouter();
 
   const onSave = async () => {
-    // @ts-ignore
-    const response = await fetch(`${window.env.RSC_URL}/api/notes`, {
-      method: "POST",
-      body: JSON.stringify({
-        title,
-        content,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const newNote = await response.json();
-    navigate?.(`/my-notes?id=${newNote.id}`);
+    if (title && content) {
+      const response = await fetch(`${window.env.RSC_URL}/api/notes`, {
+        method: "POST",
+        body: JSON.stringify({
+          title,
+          content,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const newNote = await response.json();
+      if (newNote?.id) {
+        navigate?.(`/my-notes?id=${newNote.id}`);
+      }
+    } else {
+      alert("Invalid values");
+    }
   };
 
   return (
     <section className="add_edit_note__section add_edit_note__edit_section">
-      <h2 className="add_edit_note__item">Edit Note</h2>
+      <h2 className="add_edit_note__item">Add Note</h2>
       <input
         className="add_edit_note__item add_edit_note_input"
         placeholder="Title"
@@ -44,7 +49,7 @@ export const EditNote = ({
       />
       <textarea
         className="add_edit_note__item add_edit_note_textarea"
-        placeholder="Note Content (markdown supported)"
+        placeholder="Note content"
         value={content}
         onChange={onChangeBody}
       />

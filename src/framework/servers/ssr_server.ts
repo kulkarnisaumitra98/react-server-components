@@ -1,5 +1,4 @@
 import express from "express";
-import path from "path";
 import { Readable } from "stream";
 import webStream from "node:stream/web";
 import type { ReadableStream } from "node:stream/web";
@@ -16,10 +15,8 @@ const client_env = {
 };
 const app = express();
 
-const __dirname = path.resolve();
-
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static(path.join(__dirname, "client_out")));
+app.use(express.static("public"));
+app.use(express.static("client_out"));
 
 app.get("*", async (req, res) => {
   try {
@@ -50,17 +47,19 @@ app.get("*", async (req, res) => {
       );
       const htmlStream = await renderToReadableStream(serverRoot);
       const reader = injectionStream.getReader();
+      let envAdded = false;
       const transformedHtmlStream = new webStream.TransformStream({
         transform(chunk, controller) {
           let chunkValue = decodeText(chunk);
           if (chunkValue == "</body></html>") {
-            chunkValue =
-              `<script>self.env = ${JSON.stringify(client_env)}</script>\
-              <script async type="module" src="/client_root.js"></script>\
-              <script src="/reload.js"></script>`.concat(chunkValue);
             controller.enqueue(encodeText(chunkValue));
             controller.terminate();
           } else {
+            if (!envAdded) {
+              envAdded = true;
+              chunkValue += `<script>self.env = ${JSON.stringify(client_env)}</script>\
+              <script src="/reload.js"></script>`;
+            }
             controller.enqueue(encodeText(chunkValue));
 
             reader.read().then(function pump({
