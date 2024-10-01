@@ -3,4 +3,3 @@ node_modules/
 client_out/
 .env
 notes.db
-*.md

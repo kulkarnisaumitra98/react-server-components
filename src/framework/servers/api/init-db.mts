@@ -1,4 +1,5 @@
 import { db } from "./db.mjs";
+import fs from "fs";
 
 // SQL to create the notes table
 const createTableSQL = `
@@ -10,18 +11,20 @@ const createTableSQL = `
   )
 `;
 
-// Execute the create table SQL
-db.run(createTableSQL, (err) => {
-  if (err) {
-    console.error("Error creating table:", err);
-  } else {
-    console.log("Notes table created r already exists.");
-    // Call the function to create initial notes
-    createInitialNotes();
-  }
+function init() {
+  // Execute the create table SQL
+  db.run(createTableSQL, (err) => {
+    if (err) {
+      console.error("Error creating table:", err);
+    } else {
+      console.log("Notes table created");
+      // Call the function to create initial notes
+      createInitialNotes();
+    }
 
-  // Close the database connection
-});
+    // Close the database connection
+  });
+}
 //
 // Function to insert initial legitimate notes into the database
 const createInitialNotes = () => {
@@ -152,3 +155,7 @@ This will render a table like this:
     }
   });
 };
+
+if (!fs.existsSync("./notes.db")) {
+  init();
+}

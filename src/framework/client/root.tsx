@@ -1,3 +1,5 @@
+// Main client file which will load react
+
 import { startTransition, use, useState } from "react";
 import type { ReactNode } from "react";
 import { hydrateRoot } from "react-dom/client";
@@ -14,40 +16,52 @@ import { ErrorFallback } from "./ErrorFallback.js";
 const ClientRoot = () => {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <Router />
+      <Root />
     </ErrorBoundary>
   );
 };
 
+/*
+  When this client file is loaded, our aim is as follows:-
+  1. Create a readable stream which will hold the rsc payload chunks 
+  for initial hydration.
+  2. Collect the RSC payload chunks which were "pushed" from the HTML stream
+  in script tags(window object).
+  3. Pass the stream to createFromReadableStream which will ultimately create
+  the initial component for hydration
+
+  These RSC payload chunks represent the equivalent chunks 
+  which were SSRed and we need them for initial hydration
+  */
 let data = createFromReadableStream(rscStream);
 hydrateRoot(document, <ClientRoot />);
 
-const Router = () => {
-  const [global, setGlobal] = useState<any>({});
+const Root = () => {
   const { pathname, search } = window.location;
+  /*  Naive caching mechanism, we simply store the pathname as 
+      key and the corresponsing rsc payload stream as value to
+      avoid refeching the same page. 
+  */
   const [cache, setCache] = useState(
     new Map([[pathname + search || "", data]]),
   );
 
-  function navigate(pathname: string, params?: any) {
+  // Fetch the rsc payload from rsc server for any route
+  function navigate(pathname: string) {
     if (pathname) {
-      let currentPathname = window.location.pathname;
-      currentPathname = pathname;
       window.history.pushState(null, "", pathname);
-      if (params) {
-        setGlobal((prev: any) => ({ ...prev, ...params }));
-      }
-
-      if (cache.has(currentPathname)) {
-        data = cache.get(currentPathname);
+      if (cache.has(pathname)) {
+        data = cache.get(pathname);
       } else {
         data = createFromFetch(fetch(`${window.env.RSC_URL}/rsc${pathname}`));
       }
 
+      // Navigation isn't urgert and should be non blocking
+      // https://react.dev/reference/react/useTransition#building-a-suspense-enabled-router
       startTransition(() => {
         setCache((prev) => {
           const newMap = new Map(prev);
-          newMap.set(currentPathname, data);
+          newMap.set(pathname, data);
           return newMap;
         });
       });
@@ -68,7 +82,7 @@ const Router = () => {
   }
 
   return (
-    <RouterContext.Provider value={{ navigate, invalidateCache, global }}>
+    <RouterContext.Provider value={{ navigate, invalidateCache }}>
       {use<ReactNode>(data)}
     </RouterContext.Provider>
   );

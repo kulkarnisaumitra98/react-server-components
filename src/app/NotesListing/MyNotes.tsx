@@ -4,7 +4,7 @@ import { NoteCard } from "./NoteCard.js";
 import { wait } from "../../framework/servers/utils.js";
 
 export const MyNotes = async () => {
-  await wait(500);
+  await wait(200);
   const response = await fetch(`${RSC_URL}/api/notes`);
   const notes: Array<Note> = await response.json();
 

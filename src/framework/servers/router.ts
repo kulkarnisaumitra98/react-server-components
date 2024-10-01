@@ -9,10 +9,6 @@ export const router = {
     "../../app/AddEditNote/AddEditNote.js",
     "AddEditNote",
   ),
-  ["edit-note"]: importHelper(
-    "../../app/AddEditNote/AddEditNote.js",
-    "AddEditNote",
-  ),
   ["my-notes"]: importHelper(
     "../../app/NotesListing/NotesListing.js",
     "NotesListing",
