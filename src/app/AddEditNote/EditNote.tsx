@@ -9,6 +9,8 @@ interface Props {
   onChangeBody: ChangeEventHandler<HTMLTextAreaElement>;
 }
 
+const RSC_URL = window.env?.RSC_URL || "http://localhost:3000";
+
 export const EditNote = ({
   title,
   content,
@@ -19,7 +21,7 @@ export const EditNote = ({
 
   const onSave = async () => {
     if (title && content) {
-      const response = await fetch(`${window.env.RSC_URL}/api/notes`, {
+      const response = await fetch(`${RSC_URL}/api/notes`, {
         method: "POST",
         body: JSON.stringify({
           title,

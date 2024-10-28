@@ -29,6 +29,9 @@ app.use("/api", apiRouter);
     for subsequent navigations.
      
 */
+app.use(express.static("public"));
+app.use(express.static("client_out"));
+
 const getRscResponse = async (req: Request, res: Response) => {
   const pathKey = req.params?.pagePath || "/";
   // Naive router
@@ -52,7 +55,7 @@ const getRscResponse = async (req: Request, res: Response) => {
 app.get("/rsc/:pagePath", getRscResponse);
 app.get("/rsc", getRscResponse);
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server is running`);

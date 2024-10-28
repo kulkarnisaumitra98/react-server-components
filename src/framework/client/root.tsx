@@ -2,13 +2,11 @@
 
 import { startTransition, use, useState } from "react";
 import type { ReactNode } from "react";
-import { hydrateRoot } from "react-dom/client";
+import { createRoot, type Container } from "react-dom/client";
 import {
-  createFromReadableStream,
   createFromFetch,
   // @ts-ignore
 } from "react-server-dom-webpack/client.browser";
-import { rscStream } from "./intialRscStream.js";
 import { RouterContext } from "./utils.js";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./ErrorFallback.js";
@@ -21,44 +19,32 @@ const ClientRoot = () => {
   );
 };
 
-/*
-  When this client file is loaded, our aim is as follows:-
-  1. Create a readable stream which will hold the rsc payload chunks 
-  for initial hydration.
-  2. Collect the RSC payload chunks which were "pushed" from the HTML stream
-  in script tags(window object).
-  3. Pass the stream to createFromReadableStream which will ultimately create
-  the initial component for hydration
+const domNode = document.getElementById("root");
+const root = createRoot(domNode as Container);
+root.render(<ClientRoot />);
 
-  These RSC payload chunks represent the equivalent chunks 
-  which were SSRed and we need them for initial hydration
-  */
-const data = createFromReadableStream(rscStream);
-hydrateRoot(document, <ClientRoot />);
+const RSC_URL = window.env?.RSC_URL || "http://localhost:3000";
 
 const createComponentFromFetch = (path: string) => {
-  return createFromFetch(fetch(`${window.env.RSC_URL}/rsc${path}`));
+  return createFromFetch(fetch(`${RSC_URL}/rsc${path}`));
 };
 
-const getInitialCache = () => {
-  const { pathname, search } = window.location;
-  return new Map([[pathname + search || "", data]]);
-};
+const { pathname, search } = window.location;
+let location = pathname + search;
+const data = createComponentFromFetch(location);
+const initialCache = new Map([[location || "", data]]);
 
 const Root = () => {
-  const { pathname, search } = window.location;
   /*  Naive caching mechanism, we simply store the pathname as 
       key and the corresponsing rsc payload stream as value to
       avoid refeching the same page. 
   */
-  const [cache, setCache] = useState(getInitialCache);
-  const pathValue = pathname + search;
+  const [cache, setCache] = useState(initialCache);
 
   // Fetch the rsc payload from rsc server for any route
   function navigate(path: string) {
     if (path) {
-      window.history.pushState(null, "", path);
-
+      location = path;
       const rscData = cache.get(path) || createComponentFromFetch(path);
       // Navigation isn't urgent and should be non blocking
       // https://react.dev/reference/react/useTransition#building-a-suspense-enabled-router
@@ -101,7 +87,7 @@ const Root = () => {
     <RouterContext.Provider
       value={{ navigate, invalidateCache, cache, refresh }}
     >
-      {use<ReactNode>(cache.get(pathValue))}
+      {use<ReactNode>(cache.get(location))}
     </RouterContext.Provider>
   );
 };
