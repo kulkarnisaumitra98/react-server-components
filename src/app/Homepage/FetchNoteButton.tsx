@@ -5,12 +5,12 @@ import { useRouter } from "../../framework/client/utils.js";
 
 export const FetchNoteButton = () => {
   const [isPending, startTransition] = useTransition();
-  const { invalidateCache } = useRouter();
+  const { refresh } = useRouter();
 
   const refreshPage = () => {
     if (!isPending) {
       startTransition(() => {
-        invalidateCache?.("/");
+        refresh?.("/");
       });
     }
   };

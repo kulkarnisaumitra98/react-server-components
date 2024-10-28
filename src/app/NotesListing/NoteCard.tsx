@@ -18,12 +18,13 @@ export const NoteCard = ({ children, note }: Props) => {
     useContext(NotesContext);
 
   const noteId = String(id);
-  const href = selectedNote !== noteId ? `/my-notes?id=${noteId}` : "/my-notes";
+  const href = `/my-notes?id=${noteId}`;
 
   const onClickCard = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    const link = selectedNote !== noteId ? href : "/my-notes";
     startTransition?.(() => {
-      navigate?.(href);
+      navigate?.(link);
     });
     setSelectedNote?.(noteId === selectedNote ? null : noteId);
   };

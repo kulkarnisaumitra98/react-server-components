@@ -1,9 +1,13 @@
 * {
 	box-sizing: border-box;
 	font-family: sans-serif;
+	color: #ccc;
+	background: #111;
 }
 
 a {
+	color: #007bff;
+	font-weight: bold;
 	text-decoration: none;
 }
 
@@ -41,7 +45,8 @@ body {
 .header__title {
 	margin: 8px 16px;
 	text-decoration: none;
-	color: #111
+	color: white;
+	font-size: 20px
 }
 
 .header__title h3 {
@@ -49,6 +54,7 @@ body {
 }
 
 .header__nav_item {
+	font-size: 20px;
 	margin: 8px 16px;
 }
 
@@ -80,9 +86,14 @@ body {
 	padding: 4px 8px;
 }
 
+.homepage__random_note {
+	border: 1px solid green;
+	padding: 4px
+}
+
 .homepage__message {
 	text-align: center;
-	border: 1px solid #aaa;
+	font-weight: normal;
 }
 
 .homepage__demo_cont {
@@ -98,7 +109,16 @@ body {
 	flex-direction: column;
 }
 
+.homepage__demo_button {
+	width: 20%;
+}
+
+.homepage__demo_note {
+	width: 80%;
+}
+
 .homepage_demo_title {
+	color: orange;
 	margin-bottom: 16px !important;
 }
 
@@ -120,12 +140,12 @@ body {
 
 .add_edit_note__title_preview {
 	height: 30px;
-	border-bottom: 1px solid #aaa
+	border-bottom: 1px solid #aaa;
+	color: white;
 }
 
 .add_edit_note__body_preview {
 	height: 500px;
-	border: 1px solid #aaa
 }
 
 
@@ -137,6 +157,7 @@ body {
 .add_edit_note_input {
 	padding: 6px;
 	width: 50%;
+	border: 0.5px solid #aaa;
 	height: 30px
 }
 
@@ -147,7 +168,13 @@ body {
 }
 
 .add_edit_note_button {
+	cursor: pointer;
 	width: 100px;
+	background: #555;
+	border: none;
+	font-weight: bold;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
+	border-radius: 4px;
 }
 
 .my_notes {
@@ -164,33 +191,31 @@ body {
 }
 
 .my_notes__note_card {
-	background-color: #ffffff;
-	border-radius: 8px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	border-bottom: 1px solid #ddd;
 	padding: 16px;
 	max-height: 250px;
 	transition: box-shadow 0.3s ease;
 }
 
 .my_notes__note_card:hover {
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
 }
 
 .my_notes__note_title {
 	font-size: 18px;
 	font-weight: bold;
-	color: #333333;
+	color: white;
 	margin: 0 0 8px 0;
 }
 
 .my_notes__note_content {
 	font-size: 14px;
-	color: #666666;
 	margin: 0;
 	line-height: 1.4;
 }
 
 .my_notes__preview {
+	padding: 16px;
 	width: 70%;
 }
 

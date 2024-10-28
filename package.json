@@ -10,7 +10,7 @@
     "start:ssr": "nodemon  --delay 200ms --import ./node-loaders/register-hooks.mjs ./dist/framework/servers/ssr_server.js",
     "start": "concurrently \"npm run start:rsc\" \"npm run start:ssr\" \"npm run watch\"",
     "init-db": "node ./dist/framework/servers/api/init-db.mjs",
-    "watch": "node live-reload.cjs"
+    "watch": "node live-reload.js"
   },
   "keywords": [],
   "author": "",
@@ -19,10 +19,10 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "marked": "^14.1.2",
-    "react": "19.0.0-rc-5d19e1c8-20240923",
-    "react-dom": "19.0.0-rc-5d19e1c8-20240923",
+    "react": "19.0.0-rc-cae764ce-20241025",
+    "react-dom": "19.0.0-rc-cae764ce-20241025",
     "react-error-boundary": "^4.0.13",
-    "react-server-dom-webpack": "19.0.0-rc-5d19e1c8-20240923",
+    "react-server-dom-webpack": "19.0.0-rc-cae764ce-20241025",
     "sanitize-html": "^2.13.0",
     "sqlite3": "^5.1.7"
   },
@@ -48,6 +48,6 @@
     "@types/react-dom": "npm:types-react-dom@rc"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=20.0.17"
   }
 }

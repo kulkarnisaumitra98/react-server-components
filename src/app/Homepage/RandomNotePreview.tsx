@@ -4,6 +4,7 @@ import sanitizeHtml from "sanitize-html";
 import { wait } from "../../framework/servers/utils.js";
 import { RSC_URL } from "../../shared/constants.js";
 import type { Note } from "../../shared/types.js";
+import { NoteTitle } from "./NoteTitle.js";
 
 export const RandomNotePreview = async () => {
   await wait(500);
@@ -13,8 +14,9 @@ export const RandomNotePreview = async () => {
     const { title, content } = note;
     return (
       <div>
-        <h3>{title}</h3>
+        <NoteTitle title={title} />
         <div
+          className="homepage__random_note"
           dangerouslySetInnerHTML={{
             __html: sanitizeHtml(marked(content)),
           }}

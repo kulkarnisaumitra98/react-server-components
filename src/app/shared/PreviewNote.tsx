@@ -6,10 +6,14 @@ import type { CommonSectionProps } from "./types.js";
 export const PreviewNote = ({
   title,
   content,
-}: CommonSectionProps & { isPreviewLoading?: boolean }) => {
+  showNotePreview = false,
+}: CommonSectionProps & {
+  showNotePreview?: boolean;
+  isPreviewLoading?: boolean;
+}) => {
   return (
     <section className="add_edit_note__section add_edit_note__preview_section">
-      <h2 className="add_edit_note__item">Note Preview</h2>
+      {showNotePreview && <h2 className="add_edit_note__item">Note Preview</h2>}
       <h3 className="add_edit_note__item add_edit_note__title_preview">
         {title}
       </h3>

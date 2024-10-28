@@ -42,7 +42,7 @@ export function createOrEditNote(
 export function getAllNotes(
   callback: (error: Error | null, notes?: Note[]) => void,
 ): void {
-  const query = `SELECT * FROM notes ORDER BY created_at DESC`;
+  const query = `SELECT id,title,created_at FROM notes ORDER BY created_at DESC`;
 
   db.all(query, [], (err, rows) => {
     if (err) {

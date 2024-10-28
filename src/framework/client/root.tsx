@@ -33,8 +33,17 @@ const ClientRoot = () => {
   These RSC payload chunks represent the equivalent chunks 
   which were SSRed and we need them for initial hydration
   */
-let data = createFromReadableStream(rscStream);
+const data = createFromReadableStream(rscStream);
 hydrateRoot(document, <ClientRoot />);
+
+const createComponentFromFetch = (path: string) => {
+  return createFromFetch(fetch(`${window.env.RSC_URL}/rsc${path}`));
+};
+
+const getInitialCache = () => {
+  const { pathname, search } = window.location;
+  return new Map([[pathname + search || "", data]]);
+};
 
 const Root = () => {
   const { pathname, search } = window.location;
@@ -42,26 +51,21 @@ const Root = () => {
       key and the corresponsing rsc payload stream as value to
       avoid refeching the same page. 
   */
-  const [cache, setCache] = useState(
-    new Map([[pathname + search || "", data]]),
-  );
+  const [cache, setCache] = useState(getInitialCache);
+  const pathValue = pathname + search;
 
   // Fetch the rsc payload from rsc server for any route
-  function navigate(pathname: string) {
-    if (pathname) {
-      window.history.pushState(null, "", pathname);
-      if (cache.has(pathname)) {
-        data = cache.get(pathname);
-      } else {
-        data = createFromFetch(fetch(`${window.env.RSC_URL}/rsc${pathname}`));
-      }
+  function navigate(path: string) {
+    if (path) {
+      window.history.pushState(null, "", path);
 
-      // Navigation isn't urgert and should be non blocking
+      const rscData = cache.get(path) || createComponentFromFetch(path);
+      // Navigation isn't urgent and should be non blocking
       // https://react.dev/reference/react/useTransition#building-a-suspense-enabled-router
       startTransition(() => {
-        setCache((prev) => {
-          const newMap = new Map(prev);
-          newMap.set(pathname, data);
+        setCache((prevCache) => {
+          const newMap = new Map(prevCache);
+          newMap.set(path, rscData);
           return newMap;
         });
       });
@@ -70,20 +74,34 @@ const Root = () => {
     }
   }
 
-  function invalidateCache(pathname: string) {
-    data = createFromFetch(fetch(`${window.env.RSC_URL}/rsc${pathname}`));
+  function invalidateCache(paths: string[]) {
     startTransition(() => {
       setCache((prev) => {
         const newMap = new Map(prev);
-        newMap.set(pathname, data);
+        paths.forEach((path) => {
+          newMap.delete(path);
+        });
+        return newMap;
+      });
+    });
+  }
+
+  function refresh(path: string) {
+    const rscData = createComponentFromFetch(path);
+    startTransition(() => {
+      setCache((prev) => {
+        const newMap = new Map(prev);
+        newMap.set(path, rscData);
         return newMap;
       });
     });
   }
 
   return (
-    <RouterContext.Provider value={{ navigate, invalidateCache }}>
-      {use<ReactNode>(data)}
+    <RouterContext.Provider
+      value={{ navigate, invalidateCache, cache, refresh }}
+    >
+      {use<ReactNode>(cache.get(pathValue))}
     </RouterContext.Provider>
   );
 };

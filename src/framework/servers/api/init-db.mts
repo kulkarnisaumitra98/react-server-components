@@ -38,8 +38,6 @@ const createInitialNotes = () => {
     {
       title: "Getting Started with Markdown",
       content: `
-# Markdown Basics
-
 Markdown allows you to write using a plain text format that can be converted to HTML. Here are some common elements:
 
 ## Headings
@@ -69,8 +67,6 @@ Markdown allows you to write using a plain text format that can be converted to 
     {
       title: "Code Blocks in Markdown",
       content: `
-# How to Use Code Blocks
-
 You can include code blocks in markdown by using triple backticks.
 
 \`\`\`
@@ -89,8 +85,6 @@ console.log("Hello, World!");
     {
       title: "Advanced Formatting in Markdown",
       content: `
-# Advanced Formatting
-
 Here are some advanced markdown features:
 
 ## Bold and Italics
@@ -114,8 +108,6 @@ Use \`>\` for blockquotes:
     {
       title: "Creating Tables in Markdown",
       content: `
-# Tables in Markdown
-
 To create a table, use this format:
 
 \`\`\`md
