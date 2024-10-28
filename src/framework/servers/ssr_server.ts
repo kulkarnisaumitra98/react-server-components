@@ -7,7 +7,7 @@ import { createFromNodeStream } from "react-server-dom-webpack/client.node.unbun
 // @ts-ignore
 import { renderToReadableStream } from "react-dom/server.edge";
 import { decodeText, encodeText, getSSRManifest } from "./utils.js";
-import { RSC_URL, WS_URL } from "../../shared/constants.js";
+import { RSC_URL, WS_URL } from "../shared/constants.js";
 
 const client_env = {
   RSC_URL,

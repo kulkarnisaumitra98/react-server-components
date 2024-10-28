@@ -1,7 +1,7 @@
-import type { Note } from "../../shared/types.js";
-import { RSC_URL } from "../../shared/constants.js";
 import { NoteCard } from "./NoteCard.js";
 import { wait } from "../../framework/servers/utils.js";
+import type { Note } from "../../framework/shared/types.js";
+import { RSC_URL } from "../../framework/shared/constants.js";
 
 export const MyNotes = async () => {
   await wait(200);
@@ -13,18 +13,26 @@ export const MyNotes = async () => {
       const note = notes[idx];
 
       return (
-        <NoteCard note={note}>
+        <NoteCard
+          note={note}
+          createDate={
+            <p className="my_notes__note_content">
+              {new Date(created_at || "").toLocaleString()}
+            </p>
+          }
+        >
           <p className="my_notes__note_title">{title}</p>
-          <p className="my_notes__note_content">
-            {new Date(created_at || "").toLocaleString()}
-          </p>
         </NoteCard>
       );
     });
   };
   if (notes.length) {
-    return getNotes();
+    return <div className="server">{getNotes()}</div>;
   }
 
-  return <p> No notes found </p>;
+  return (
+    <div className="server">
+      <p> No notes found </p>
+    </div>
+  );
 };

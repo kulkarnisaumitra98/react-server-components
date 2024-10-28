@@ -1,11 +1,16 @@
 * {
 	box-sizing: border-box;
 	font-family: sans-serif;
+	color: #ccc;
+	background: #111;
 }
 
 a {
+	color: #007bff;
+	font-weight: bold;
 	text-decoration: none;
 }
+
 
 h1,
 h2,
@@ -41,7 +46,8 @@ body {
 .header__title {
 	margin: 8px 16px;
 	text-decoration: none;
-	color: #111
+	color: white;
+	font-size: 20px
 }
 
 .header__title h3 {
@@ -49,6 +55,7 @@ body {
 }
 
 .header__nav_item {
+	font-size: 20px;
 	margin: 8px 16px;
 }
 
@@ -65,41 +72,15 @@ body {
 
 .homepage {
 	display: flex;
-	flex-direction: column;
-	padding: 40px;
-	padding-bottom: 0;
-}
-
-.homage__fetch_random_note {
-	display: flex;
-	cursor: pointer;
-	justify-content: center;
 	align-items: center;
-	border-radius: 4px;
-	border: 2px solid #222;
-	padding: 4px 8px;
+	justify-content: center;
+	padding: 40px;
+	padding-bottom: 60px;
 }
 
 .homepage__message {
 	text-align: center;
-	border: 1px solid #aaa;
-}
-
-.homepage__demo_cont {
-	display: flex;
-	justify-content: center;
-	margin-top: 50px;
-	gap: 100px;
-	width: 100%;
-}
-
-.homagepage_demo_item {
-	display: flex;
-	flex-direction: column;
-}
-
-.homepage_demo_title {
-	margin-bottom: 16px !important;
+	font-weight: normal;
 }
 
 .add_edit_note {
@@ -120,12 +101,12 @@ body {
 
 .add_edit_note__title_preview {
 	height: 30px;
-	border-bottom: 1px solid #aaa
+	border-bottom: 1px solid #aaa;
+	color: white;
 }
 
 .add_edit_note__body_preview {
 	height: 500px;
-	border: 1px solid #aaa
 }
 
 
@@ -137,6 +118,7 @@ body {
 .add_edit_note_input {
 	padding: 6px;
 	width: 50%;
+	border: 0.5px solid #aaa;
 	height: 30px
 }
 
@@ -147,7 +129,13 @@ body {
 }
 
 .add_edit_note_button {
+	cursor: pointer;
 	width: 100px;
+	background: #555;
+	border: none;
+	font-weight: bold;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
+	border-radius: 4px;
 }
 
 .my_notes {
@@ -164,33 +152,38 @@ body {
 }
 
 .my_notes__note_card {
-	background-color: #ffffff;
-	border-radius: 8px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	position: relative;
+	border-bottom: 1px solid #ddd;
 	padding: 16px;
 	max-height: 250px;
 	transition: box-shadow 0.3s ease;
 }
 
+.my_notes__icon {
+	position: absolute;
+	right: 15px;
+	top: 15px;
+}
+
 .my_notes__note_card:hover {
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
 }
 
 .my_notes__note_title {
 	font-size: 18px;
 	font-weight: bold;
-	color: #333333;
+	color: white;
 	margin: 0 0 8px 0;
 }
 
 .my_notes__note_content {
 	font-size: 14px;
-	color: #666666;
 	margin: 0;
 	line-height: 1.4;
 }
 
 .my_notes__preview {
+	padding: 16px;
 	width: 70%;
 }
 

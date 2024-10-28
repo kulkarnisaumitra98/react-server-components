@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Layout } from "./Layout.js";
-import { HTMLTemplate } from "../shared/HTMLTemplate.js";
+import { HTMLTemplate } from "../framework/shared/HTMLTemplate.js";
 
 interface Props {
   children: ReactNode;

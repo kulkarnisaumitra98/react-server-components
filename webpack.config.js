@@ -30,6 +30,15 @@ module.exports = {
       ],
     }),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        enforce: "pre",
+        use: ["source-map-loader"],
+      },
+    ],
+  },
   output: {
     path: path.resolve(__dirname, "client_out"),
     filename: "client_root.js",

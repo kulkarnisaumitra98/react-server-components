@@ -18,17 +18,17 @@ importers:
         specifier: ^14.1.2
         version: 14.1.2
       react:
-        specifier: 19.0.0-rc-5d19e1c8-20240923
-        version: 19.0.0-rc-5d19e1c8-20240923
+        specifier: 19.0.0-rc-cae764ce-20241025
+        version: 19.0.0-rc-cae764ce-20241025
       react-dom:
-        specifier: 19.0.0-rc-5d19e1c8-20240923
-        version: 19.0.0-rc-5d19e1c8-20240923(react@19.0.0-rc-5d19e1c8-20240923)
+        specifier: 19.0.0-rc-cae764ce-20241025
+        version: 19.0.0-rc-cae764ce-20241025(react@19.0.0-rc-cae764ce-20241025)
       react-error-boundary:
         specifier: ^4.0.13
-        version: 4.0.13(react@19.0.0-rc-5d19e1c8-20240923)
+        version: 4.0.13(react@19.0.0-rc-cae764ce-20241025)
       react-server-dom-webpack:
-        specifier: 19.0.0-rc-5d19e1c8-20240923
-        version: 19.0.0-rc-5d19e1c8-20240923(react-dom@19.0.0-rc-5d19e1c8-20240923(react@19.0.0-rc-5d19e1c8-20240923))(react@19.0.0-rc-5d19e1c8-20240923)(webpack@5.93.0(webpack-cli@5.1.4))
+        specifier: 19.0.0-rc-cae764ce-20241025
+        version: 19.0.0-rc-cae764ce-20241025(react-dom@19.0.0-rc-cae764ce-20241025(react@19.0.0-rc-cae764ce-20241025))(react@19.0.0-rc-cae764ce-20241025)(webpack@5.93.0)
       sanitize-html:
         specifier: ^2.13.0
         version: 2.13.0
@@ -69,6 +69,9 @@ importers:
       nodemon:
         specifier: ^3.1.4
         version: 3.1.4
+      source-map-loader:
+        specifier: ^5.0.0
+        version: 5.0.0(webpack@5.93.0)
       typescript:
         specifier: ^5.5.3
         version: 5.5.3
@@ -1324,26 +1327,26 @@ packages:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
     hasBin: true
 
-  react-dom@19.0.0-rc-5d19e1c8-20240923:
-    resolution: {integrity: sha512-1O1KWGV/Lmlr1d1RePwiqZOuq2/EZLPpD/9fwlgJer4KKYTr6KlIEPEjC6u1iMQEUvs/r+maxdKSgeHjsNWFfg==}
+  react-dom@19.0.0-rc-cae764ce-20241025:
+    resolution: {integrity: sha512-e3CVe2+ojMe4dz8E/WsV9bkRj+lZt5ms+rhTFHEqIAHv4/PDdXa7P4uJXNhfik+ZYF4Wg5wCDVP4l7cgaudCpg==}
     peerDependencies:
-      react: 19.0.0-rc-5d19e1c8-20240923
+      react: 19.0.0-rc-cae764ce-20241025
 
   react-error-boundary@4.0.13:
     resolution: {integrity: sha512-b6PwbdSv8XeOSYvjt8LpgpKrZ0yGdtZokYwkwV2wlcZbxgopHX/hgPl5VgpnoVOWd868n1hktM8Qm4b+02MiLQ==}
     peerDependencies:
       react: '>=16.13.1'
 
-  react-server-dom-webpack@19.0.0-rc-5d19e1c8-20240923:
-    resolution: {integrity: sha512-hGkbo+YFRNoqw9d/xV3FTHmI2rljBDEsr6z3mI1sH8q4DrUI3gkfPt3lxgy2PwXQtXkEit3Ko72o91gcdIntAg==}
+  react-server-dom-webpack@19.0.0-rc-cae764ce-20241025:
+    resolution: {integrity: sha512-iY8luqjJjkbt7FhrY9nS2iIcXHXmHOR1uoQGMQ306UOZIaSo034MBQuhIOz7fm7id6tvYThI3jOOPqQb+fK22w==}
     engines: {node: '>=0.10.0'}
     peerDependencies:
-      react: 19.0.0-rc-5d19e1c8-20240923
-      react-dom: 19.0.0-rc-5d19e1c8-20240923
+      react: 19.0.0-rc-cae764ce-20241025
+      react-dom: 19.0.0-rc-cae764ce-20241025
       webpack: ^5.59.0
 
-  react@19.0.0-rc-5d19e1c8-20240923:
-    resolution: {integrity: sha512-ZmgGzqPoYKevfJa+BThu1qkvDFFAVYQIbG9oPvAbNk1/4A+wJqplwDT1rhbRZmxV8n67oawoZkf5xAup99cyUA==}
+  react@19.0.0-rc-cae764ce-20241025:
+    resolution: {integrity: sha512-5wV/3MJc6Ws4l4ZF95yaQKaMV8aWVlIBKOdPA4Kere7CfdJ0NMIuKt9j9v0U4ZTmCi4ubAdN+KL4gGdfTEIpuw==}
     engines: {node: '>=0.10.0'}
 
   readable-stream@3.6.2:
@@ -1398,8 +1401,8 @@ packages:
   sanitize-html@2.13.0:
     resolution: {integrity: sha512-Xff91Z+4Mz5QiNSLdLWwjgBDm5b1RU6xBT0+12rapjiaR7SwfRdjw8f+6Rir2MXKLrDicRFHdb51hGOAxmsUIA==}
 
-  scheduler@0.25.0-rc-5d19e1c8-20240923:
-    resolution: {integrity: sha512-lyXuqeq6jwl7PPmOBJcqrfbm5qczKdgDTdIc0JYq6nJq0CATvNBSP95s+8TqPwcesmE3t+0jh9W1w6WOAtR7Aw==}
+  scheduler@0.25.0-rc-cae764ce-20241025:
+    resolution: {integrity: sha512-kiDqIcp0nrZ8RW65wMujBEs7eDNfd49hcfjDmscxWIsnDTz9NRQrTAChv/tYRYCUNk7qPM36SQOja2HcRuee0A==}
 
   schema-utils@3.3.0:
     resolution: {integrity: sha512-pN/yOAvcC+5rQ5nERGuwrjLlYvLTbCibnZ1I7B1LaiAz9BRBlE9GMgE/eqV30P7aJQUf7Ddimy/RsbYO/GrVGg==}
@@ -1486,6 +1489,12 @@ packages:
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
+
+  source-map-loader@5.0.0:
+    resolution: {integrity: sha512-k2Dur7CbSLcAH73sBcIkV5xjPV4SzqO1NJ7+XaQl8if3VODDUj3FNchNGpqgJSKbvUfJuhVdv8K2Eu8/TNl2eA==}
+    engines: {node: '>= 18.12.0'}
+    peerDependencies:
+      webpack: ^5.72.1
 
   source-map-support@0.5.21:
     resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==}
@@ -2078,17 +2087,17 @@ snapshots:
       '@webassemblyjs/ast': 1.12.1
       '@xtuc/long': 4.2.2
 
-  '@webpack-cli/configtest@2.1.1(webpack-cli@5.1.4(webpack@5.93.0))(webpack@5.93.0(webpack-cli@5.1.4))':
+  '@webpack-cli/configtest@2.1.1(webpack-cli@5.1.4)(webpack@5.93.0)':
     dependencies:
       webpack: 5.93.0(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack@5.93.0)
 
-  '@webpack-cli/info@2.0.2(webpack-cli@5.1.4(webpack@5.93.0))(webpack@5.93.0(webpack-cli@5.1.4))':
+  '@webpack-cli/info@2.0.2(webpack-cli@5.1.4)(webpack@5.93.0)':
     dependencies:
       webpack: 5.93.0(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack@5.93.0)
 
-  '@webpack-cli/serve@2.0.5(webpack-cli@5.1.4(webpack@5.93.0))(webpack@5.93.0(webpack-cli@5.1.4))':
+  '@webpack-cli/serve@2.0.5(webpack-cli@5.1.4)(webpack@5.93.0)':
     dependencies:
       webpack: 5.93.0(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack@5.93.0)
@@ -2695,7 +2704,6 @@ snapshots:
   iconv-lite@0.6.3:
     dependencies:
       safer-buffer: 2.1.2
-    optional: true
 
   ieee754@1.2.1: {}
 
@@ -3104,26 +3112,26 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  react-dom@19.0.0-rc-5d19e1c8-20240923(react@19.0.0-rc-5d19e1c8-20240923):
+  react-dom@19.0.0-rc-cae764ce-20241025(react@19.0.0-rc-cae764ce-20241025):
     dependencies:
-      react: 19.0.0-rc-5d19e1c8-20240923
-      scheduler: 0.25.0-rc-5d19e1c8-20240923
+      react: 19.0.0-rc-cae764ce-20241025
+      scheduler: 0.25.0-rc-cae764ce-20241025
 
-  react-error-boundary@4.0.13(react@19.0.0-rc-5d19e1c8-20240923):
+  react-error-boundary@4.0.13(react@19.0.0-rc-cae764ce-20241025):
     dependencies:
       '@babel/runtime': 7.25.6
-      react: 19.0.0-rc-5d19e1c8-20240923
+      react: 19.0.0-rc-cae764ce-20241025
 
-  react-server-dom-webpack@19.0.0-rc-5d19e1c8-20240923(react-dom@19.0.0-rc-5d19e1c8-20240923(react@19.0.0-rc-5d19e1c8-20240923))(react@19.0.0-rc-5d19e1c8-20240923)(webpack@5.93.0(webpack-cli@5.1.4)):
+  react-server-dom-webpack@19.0.0-rc-cae764ce-20241025(react-dom@19.0.0-rc-cae764ce-20241025(react@19.0.0-rc-cae764ce-20241025))(react@19.0.0-rc-cae764ce-20241025)(webpack@5.93.0):
     dependencies:
       acorn-loose: 8.4.0
       neo-async: 2.6.2
-      react: 19.0.0-rc-5d19e1c8-20240923
-      react-dom: 19.0.0-rc-5d19e1c8-20240923(react@19.0.0-rc-5d19e1c8-20240923)
+      react: 19.0.0-rc-cae764ce-20241025
+      react-dom: 19.0.0-rc-cae764ce-20241025(react@19.0.0-rc-cae764ce-20241025)
       webpack: 5.93.0(webpack-cli@5.1.4)
       webpack-sources: 3.2.3
 
-  react@19.0.0-rc-5d19e1c8-20240923: {}
+  react@19.0.0-rc-cae764ce-20241025: {}
 
   readable-stream@3.6.2:
     dependencies:
@@ -3180,7 +3188,7 @@ snapshots:
       parse-srcset: 1.0.2
       postcss: 8.4.45
 
-  scheduler@0.25.0-rc-5d19e1c8-20240923: {}
+  scheduler@0.25.0-rc-cae764ce-20241025: {}
 
   schema-utils@3.3.0:
     dependencies:
@@ -3293,6 +3301,12 @@ snapshots:
 
   source-map-js@1.2.1: {}
 
+  source-map-loader@5.0.0(webpack@5.93.0):
+    dependencies:
+      iconv-lite: 0.6.3
+      source-map-js: 1.2.1
+      webpack: 5.93.0(webpack-cli@5.1.4)
+
   source-map-support@0.5.21:
     dependencies:
       buffer-from: 1.1.2
@@ -3378,7 +3392,7 @@ snapshots:
       mkdirp: 1.0.4
       yallist: 4.0.0
 
-  terser-webpack-plugin@5.3.10(webpack@5.93.0(webpack-cli@5.1.4)):
+  terser-webpack-plugin@5.3.10(webpack@5.93.0):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
@@ -3467,9 +3481,9 @@ snapshots:
   webpack-cli@5.1.4(webpack@5.93.0):
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
-      '@webpack-cli/configtest': 2.1.1(webpack-cli@5.1.4(webpack@5.93.0))(webpack@5.93.0(webpack-cli@5.1.4))
-      '@webpack-cli/info': 2.0.2(webpack-cli@5.1.4(webpack@5.93.0))(webpack@5.93.0(webpack-cli@5.1.4))
-      '@webpack-cli/serve': 2.0.5(webpack-cli@5.1.4(webpack@5.93.0))(webpack@5.93.0(webpack-cli@5.1.4))
+      '@webpack-cli/configtest': 2.1.1(webpack-cli@5.1.4)(webpack@5.93.0)
+      '@webpack-cli/info': 2.0.2(webpack-cli@5.1.4)(webpack@5.93.0)
+      '@webpack-cli/serve': 2.0.5(webpack-cli@5.1.4)(webpack@5.93.0)
       colorette: 2.0.20
       commander: 10.0.1
       cross-spawn: 7.0.3
@@ -3512,7 +3526,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.10(webpack@5.93.0(webpack-cli@5.1.4))
+      terser-webpack-plugin: 5.3.10(webpack@5.93.0)
       watchpack: 2.4.1
       webpack-sources: 3.2.3
     optionalDependencies:

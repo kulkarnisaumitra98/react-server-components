@@ -15,7 +15,7 @@ export const EditNote = ({
   onChangeTitle,
   onChangeBody,
 }: CommonSectionProps & Props) => {
-  const { navigate } = useRouter();
+  const { invalidateCache, navigate, cache } = useRouter();
 
   const onSave = async () => {
     if (title && content) {
@@ -31,6 +31,11 @@ export const EditNote = ({
       });
       const newNote = await response.json();
       if (newNote?.id) {
+        invalidateCache?.(
+          Array.from(cache?.keys() || []).filter((key) => {
+            return key.startsWith("/my-notes") && !key.includes(newNote.id);
+          }),
+        );
         navigate?.(`/my-notes?id=${newNote.id}`);
       }
     } else {

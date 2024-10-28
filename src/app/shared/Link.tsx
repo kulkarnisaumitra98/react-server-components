@@ -14,7 +14,7 @@ export const Link = ({ href, children, ...props }: Props) => {
     }
   };
   return (
-    <a onClick={onClick} href={href} {...props}>
+    <a className="client" onClick={onClick} href={href} {...props}>
       {children}
     </a>
   );

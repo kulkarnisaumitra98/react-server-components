@@ -1,5 +1,5 @@
+import type { Note, NoteCallback } from "../../shared/types.js";
 import { db } from "./db.mjs";
-import type { Note, NoteCallback } from "../../../shared/types.js";
 
 export function createOrEditNote(
   id: number | null,
@@ -42,7 +42,7 @@ export function createOrEditNote(
 export function getAllNotes(
   callback: (error: Error | null, notes?: Note[]) => void,
 ): void {
-  const query = `SELECT * FROM notes ORDER BY created_at DESC`;
+  const query = `SELECT id,title,created_at FROM notes ORDER BY created_at DESC`;
 
   db.all(query, [], (err, rows) => {
     if (err) {

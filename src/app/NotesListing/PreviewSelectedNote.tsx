@@ -1,7 +1,7 @@
 import { wait } from "../../framework/servers/utils.js";
-import { RSC_URL } from "../../shared/constants.js";
-import type { Note } from "../../shared/types.js";
+import { RSC_URL } from "../../framework/shared/constants.js";
 import { PreviewNote } from "../shared/PreviewNote.js";
+import type { Note } from "../shared/types.js";
 
 interface Props {
   id?: string;

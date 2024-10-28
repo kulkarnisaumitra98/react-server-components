@@ -25,7 +25,7 @@ export const Sections = () => {
         title={title}
         content={content}
       />
-      <PreviewNote title={title} content={content} />
+      <PreviewNote showNotePreview title={title} content={content} />
     </>
   );
 };

@@ -1,5 +1,5 @@
-import { HTMLTemplate } from "../../shared/HTMLTemplate.js";
 import type { FallbackProps } from "react-error-boundary";
+import { HTMLTemplate } from "../shared/HTMLTemplate.js";
 
 export const ErrorFallback = ({ error }: FallbackProps) => {
   return (
