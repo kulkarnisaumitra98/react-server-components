@@ -1,11 +1,10 @@
 import express from "express";
 import type { Request, Response } from "express";
 // @ts-ignore
-import * as ReactServerDOM from "react-server-dom-webpack/server.edge";
+import { renderToPipeableStream } from "react-server-dom-webpack/server";
 import apiRouter from "./api/apiRouter.js";
 import { getClientManifest, cors } from "./utils.js";
 import { getRoute, type Paths } from "./router.js";
-import { Readable } from "stream";
 import { ServerRoot } from "../../app/ServerRoot.js";
 import dotenv from "dotenv";
 dotenv.config();
@@ -35,17 +34,17 @@ const getRscResponse = async (req: Request, res: Response) => {
   const PageToRender = await getRoute(pathKey as Paths);
   if (PageToRender) {
     const clientManifest = getClientManifest();
-    const stream = await ReactServerDOM.renderToReadableStream(
+    const stream = await renderToPipeableStream(
       <ServerRoot>
         <PageToRender params={req.query} />
       </ServerRoot>,
       clientManifest,
     );
 
-    Readable.fromWeb(stream).pipe(res);
+    stream.pipe(res);
   } else {
     res.status(404);
-    res.send("Not Fddound");
+    res.send("Not Found");
   }
 };
 

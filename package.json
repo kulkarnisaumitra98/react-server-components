@@ -7,7 +7,7 @@
     "build:client": "webpack -w",
     "build": "node ./scripts/build.js",
     "start:rsc": "nodemon --delay 200ms --conditions react-server ./main/main_rsc.js",
-    "start:ssr": "nodemon  --delay 200ms --import ./node-loaders/register-hooks.mjs ./dist/framework/servers/ssr_server.js",
+    "start:ssr": "nodemon --delay 200ms --import ./node-loaders/register-hooks.mjs ./dist/framework/servers/ssr_server.js",
     "start": "concurrently \"npm run start:rsc\" \"npm run start:ssr\" \"npm run watch\"",
     "init-db": "node ./dist/framework/servers/api/init-db.mjs",
     "watch": "node live-reload.js"

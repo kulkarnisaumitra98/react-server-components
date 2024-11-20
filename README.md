@@ -1,8 +1,9 @@
-## React Server Components (RSC) Without Framework
+## React Server Components (RSC) in a minimal Framework
 
-The purpose of this repository is to understand server components by trying to implement them without a framework. It tries to show how SSR (Server side rendering) could work with RSC. 
+### Youtube link
+https://www.youtube.com/playlist?list=PLjdh67_BKGGlVpRU6pQvb-XRCDSedUSTM
 
-**Note: The implementation takes a naive approach with primary focus on understanding.**
+The purpose of this repository is to understand react server components by implementing a simple framework. 
 
 
 ## Setup

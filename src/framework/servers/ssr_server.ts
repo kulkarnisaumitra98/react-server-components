@@ -91,9 +91,7 @@ app.get("*", async (req, res) => {
             reader.read().then(function pump({
               value,
               done,
-            }: webStream.ReadableStreamReadResult<any>):
-              | Promise<void>
-              | undefined {
+            }: ReadableStreamReadResult<any>): Promise<void> | undefined {
               if (done) {
                 return;
               }
